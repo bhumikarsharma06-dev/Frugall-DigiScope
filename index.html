@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MicroScope 2.0</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">M</div><div><strong>MicroScope</strong><small>MICROBIOLOGY LAB</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <nav>
+      <button class="nav-item active" data-page="dashboard">⌂ <span>Dashboard</span></button>
+      <button class="nav-item" data-page="microscope">◎ <span>Microscope</span></button>
+      <button class="nav-item" data-page="library">▤ <span>Specimen Library</span></button>
+      <button class="nav-item" data-page="identify">✧ <span>AI Identification</span></button>
+      <button class="nav-item" data-page="settings">⚙ <span>Settings</span></button>
+    </nav>
+    <div class="sidebar-foot"><span class="dot"></span> Demo environment</div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><p class="eyebrow">DIGITAL LABORATORY</p><h1 id="page-title">Dashboard</h1></div><div class="avatar">M</div></header>
+    <section id="dashboard" class="page">
+      <div class="hero"><div><p class="eyebrow">YOUR DIGITAL LAB</p><h2>Explore the unseen.</h2><p>Capture, inspect and organize microscopic observations.</p><button class="primary" data-go="microscope">Open microscope <span>→</span></button></div><div class="hero-orb">◎</div></div>
+      <div class="stats"><article class="stat"><span>Saved specimens</span><strong id="specimen-count">0</strong><small>In your library</small></article><article class="stat"><span>Images this session</span><strong id="image-count">0</strong><small>Uploaded or captured</small></article><article class="stat"><span>Camera</span><strong class="status-text">Standby</strong><small>Device camera optional</small></article></div>
+      <div class="section-title"><div><h2>Quick access</h2><p>Continue your work</p></div></div>
+      <div class="quick-grid"><button class="quick-card" data-go="microscope"><span class="tile-icon">◎</span><h3>Microscope</h3><p>Upload, capture and adjust images.</p><span class="card-link">Open workspace →</span></button><button class="quick-card" data-go="library"><span class="tile-icon">▤</span><h3>Specimen library</h3><p>Review saved observations.</p><span class="card-link">View library →</span></button><button class="quick-card" data-go="identify"><span class="tile-icon">✧</span><h3>AI identification</h3><p>Explore preliminary image analysis.</p><span class="card-link">Open AI →</span></button></div>
+      <div class="section-title"><div><h2>Recent specimens</h2><p>Your latest saved observations</p></div><button class="text-button" data-go="library">View all →</button></div><div id="dashboard-recent" class="specimen-grid"></div>
+    </section>
+    <section id="microscope" class="page hidden">
+      <div class="section-title"><div><h2>Microscope workspace</h2><p>Upload an image or use your device camera.</p></div><span class="tag">LOCAL MODE</span></div>
+      <div class="workspace-card">
+        <div class="viewer"><div class="viewer-bar"><span>IMAGE VIEWER</span><span id="camera-status">● Standby</span></div><div class="image-stage" id="image-area"><div id="image-placeholder"><div class="placeholder-symbol">◎</div><h3>No image selected</h3><p>Upload an image or start the camera.</p></div><img id="preview-image" class="hidden" alt="Specimen preview"><video id="camera-video" class="hidden" autoplay playsinline muted></video></div>
+          <div class="action-row"><label class="primary upload-label">↑ Upload image<input id="image-upload" type="file" accept="image/*" hidden></label><button class="secondary" id="start-camera">◉ Live camera</button><button class="secondary hidden" id="take-photo">Capture photo</button><button class="secondary hidden" id="switch-camera">⇄ Switch camera</button><button class="secondary hidden" id="stop-camera">Stop camera</button><button class="secondary" id="clear-image">Clear</button></div><p id="capture-status" class="small-muted">No image loaded</p></div>
+        <div class="divider"></div>
+        <div class="controls"><div class="control"><label>Zoom <span id="zoom-value">1.0×</span></label><input id="zoom-control" type="range" min="1" max="4" step="0.1" value="1"></div><div class="control"><label>Brightness <span id="brightness-value">100%</span></label><input id="brightness-control" type="range" min="50" max="200" value="100"></div><div class="control"><label>Contrast <span id="contrast-value">100%</span></label><input id="contrast-control" type="range" min="50" max="200" value="100"></div></div><button class="secondary" id="reset-controls">Reset adjustments</button>
+        <div class="divider"></div><div class="save-form"><h3>Specimen details</h3><label for="sample-name">Specimen name</label><input id="sample-name" placeholder="e.g. Pond water sample"><label for="sample-notes">Observation notes</label><textarea id="sample-notes" rows="3" placeholder="Record visible features or observations..."></textarea><button class="primary" id="save-specimen">Save specimen</button></div>
+      </div>
+    </section>
+    <section id="library" class="page hidden"><div class="section-title"><div><h2>Specimen library</h2><p>Saved images and observation notes.</p></div></div><div id="specimen-list" class="specimen-grid"></div></section>
+    <section id="identify" class="page hidden"><div class="section-title"><div><h2>AI Identification</h2><p>Preliminary, AI-assisted image analysis interface.</p></div><span class="tag">DEMO</span></div><div class="ai-banner"><div class="ai-mark">✧</div><div><h3>Specimen analysis</h3><p>Results will require a connected AI service. This demo does not identify organisms.</p></div></div><div class="ai-grid"><article class="panel"><h3>Analysis image</h3><div class="ai-stage"><img id="ai-preview" class="hidden" alt="Image selected for analysis"><div id="ai-placeholder"><div class="placeholder-symbol">◎</div><p>Upload an image in Microscope first.</p></div></div><button class="secondary wide" data-go="microscope">Open microscope</button><button class="primary wide" id="analyze-btn">✧ Analyze specimen</button></article><article class="panel"><h3>Analysis results</h3><div id="ai-results" class="results-empty"><div class="ai-mark">✧</div><h3>Awaiting analysis</h3><p>Choose an image and run the demo to see the result layout.</p></div></article></div></section>
+    <section id="settings" class="page hidden"><div class="section-title"><div><h2>Settings</h2><p>About this prototype.</p></div></div><article class="panel settings"><h3>MicroScope 2.0</h3><p>Responsive digital microscopy prototype.</p><div class="divider"></div><p><strong>Camera:</strong> Browser device camera (permission required)</p><p><strong>AI:</strong> Demo only; no model connected</p><p><strong>Storage:</strong> Browser local storage</p><p><strong>Hardware:</strong> ESP32 integration not configured</p></article></section>
+    <footer>MicroScope 2.0 · Scientific exploration prototype</footer>
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
